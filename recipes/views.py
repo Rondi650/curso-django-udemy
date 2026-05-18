@@ -7,4 +7,4 @@ def home(request):
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={'nome': 'Rondi Oliveira'},
-                  status=202)
+                  status=200)
