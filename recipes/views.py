@@ -5,13 +5,6 @@ from django.shortcuts import render
 
 def home(request):
     return render(request,
-                  template_name='recipes/home.html',
+                  template_name='recipes/pages/home.html',
                   context={'nome': 'Rondi Oliveira'},
-                  status=202)
-
-
-def temp(request):
-    return render(request,
-                  template_name='temp/temp.html',
-                  context={'titulo': 'Teste Temporario'},
                   status=202)
