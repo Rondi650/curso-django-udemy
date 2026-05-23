@@ -1,0 +1,6 @@
+services:
+  recipes:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "12345:12345"
