@@ -7,4 +7,10 @@ def home(request):
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={'nome': 'Rondi Oliveira'},
-)
+                  )
+
+
+def recipe(request, id):
+    return render(request,
+                  template_name='recipes/pages/recipe-view.html',
+                  )
