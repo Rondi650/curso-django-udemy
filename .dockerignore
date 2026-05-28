@@ -28,3 +28,7 @@ web/media
 web/static/CACHE
 stats
 Dockerfile
+.vscode
+.gitignore
+venv
+.venv
