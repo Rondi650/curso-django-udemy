@@ -6,11 +6,15 @@ from django.shortcuts import render
 def home(request):
     return render(request,
                   template_name='recipes/pages/home.html',
-                  context={'nome': 'Rondi Oliveira'},
+                  context={
+                      'page_title': 'Home'
+                  }
                   )
-
 
 def recipe(request, id):
     return render(request,
                   template_name='recipes/pages/recipe-view.html',
+                  context={
+                      'page_title': 'Recipes'
+                  }
                   )
