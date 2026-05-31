@@ -12,6 +12,7 @@ fake = Faker('pt_BR')
 
 
 def make_recipe():
+    w, h = rand_ratio()
     return {
         'title': fake.sentence(nb_words=6),
         'description': fake.sentence(nb_words=12),
@@ -29,7 +30,7 @@ def make_recipe():
             'name': fake.word()
         },
         'cover': {
-            'url': 'https://loremflickr.com/%s/%s/food,cook' % rand_ratio(),
+            'url': f'https://loremflickr.com/{w}/{h}/food,cook',
         }
     }
 
