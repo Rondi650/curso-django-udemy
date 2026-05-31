@@ -19,6 +19,7 @@ def recipe(request, id):
                   template_name='recipes/pages/recipe-view.html',
                   context={
                       'page_title': 'Recipes',
-                      'recipe': make_recipe()
+                      'recipe': make_recipe(),
+                      'is_detail_page': True
                   }
                   )
