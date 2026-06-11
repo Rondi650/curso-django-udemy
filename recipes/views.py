@@ -16,8 +16,19 @@ def home(request):
                   )
 
 
+def category(request, category_id):
+    recipes = Recipe.objects.filter(category__id=category_id).order_by('-id')
+    return render(request,
+                  template_name='recipes/pages/home.html',
+                  context={
+                      'page_title': 'Home',
+                      'recipes': recipes
+                  }
+                  )
+
+
 def recipe(request, id):
-    recipe = Recipe.objects.filter(id)
+    recipe = Recipe.objects.filter(id=id).first()
     return render(request,
                   template_name='recipes/pages/recipe-view.html',
                   context={
