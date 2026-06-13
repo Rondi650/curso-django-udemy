@@ -20,15 +20,18 @@
 
     <!-- Recipe Author, Creation Date and Category -->
     <div class="recipe-author">
-        <!-- Author -->
-        <span class="recipe-author-item">
-            <i class="fas fa-user"></i>
-            {% if recipe.author.first_name %}
-                {{ recipe.author.first_name }} {{ recipe.author.last_name }}
-            {% else %}
-                {{ recipe.author.username }}
-            {% endif %}
-        </span>
+
+        <!-- Author -->  
+        {% if recipe.author is not None %} 
+            <span class="recipe-author-item">
+                <i class="fas fa-user"></i>
+                {% if recipe.author.first_name %}
+                    {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+                {% else %}
+                    {{ recipe.author.username }}
+                {% endif %}
+            </span>
+        {% endif %}
 
         <!-- Creation Date -->
         <span class="recipe-author-item">

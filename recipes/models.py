@@ -33,3 +33,11 @@ class Recipe(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+
+"""
+CRIANDO USER NO DJANGO SHELL (exemplo)
+>>> from django.contrib.auth.models import User
+>>> User.objects.create_user(first_name='XPTO',last_name='C3PO', 
+username='pqp_pra_la',password='jafsyuhasfyfas1524')
+"""
