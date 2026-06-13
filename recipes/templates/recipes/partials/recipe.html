@@ -1,5 +1,6 @@
 <div class="recipe recipe-list-item">
 
+    <!-- Recipe Cover -->
     {% if recipe.cover %}
         <div class="recipe-cover">
             <a href="{% url "recipes:recipe" recipe.id %}">
@@ -8,6 +9,7 @@
         </div>
     {% endif %}
 
+    <!-- Recipe Title -->    
     <div class="recipe-title-container">
         <h2 class="recipe-title">
             <a href="{% url "recipes:recipe" recipe.id %}">
@@ -16,7 +18,9 @@
         </h2>
     </div>
 
+    <!-- Recipe Author, Creation Date and Category -->
     <div class="recipe-author">
+        <!-- Author -->
         <span class="recipe-author-item">
             <i class="fas fa-user"></i>
             {% if recipe.author.first_name %}
@@ -25,10 +29,14 @@
                 {{ recipe.author.username }}
             {% endif %}
         </span>
+
+        <!-- Creation Date -->
         <span class="recipe-author-item">
             <i class="fas fa-calendar-alt"></i>
             {{ recipe.created_at|date:"d/m/Y" }} às {{ recipe.created_at|date:"H:i" }}
         </span>
+
+        <!-- Category (only if it exists) -->
         {% if recipe.category is not None %}
             <span class="recipe-author-item">
                 <a href="{% url "recipes:category" recipe.category.id %}">
@@ -39,10 +47,12 @@
         {% endif %}
     </div>
 
+    <!-- Recipe Content -->
     <div class="recipe-content">
         <p>{{ recipe.description }}</p>
     </div>
 
+    <!-- Recipe Metadata -->
     <div class="recipe-meta-container">
         <div class="recipe-meta recipe-preparation">
             <h3 class="recipe-meta-title"><i class="fas fa-stopwatch"></i> Preparo</h3>
@@ -58,19 +68,21 @@
         </div>
     </div>
 
-{% if not is_detail_page %} 
-    <footer class="recipe-footer">
-        <a class="recipe-read-more button button-dark button-full-width" href="{% url "recipes:recipe" recipe.id %}">
-            <i class="fas fa-eye"></i>
-            <span>ver mais...</span>
-        </a>
-    </footer>
-{% endif %}
+    <!-- Read More Button (only if not on the detail page) -->
+    {% if not is_detail_page %} 
+        <footer class="recipe-footer">
+            <a class="recipe-read-more button button-dark button-full-width" href="{% url "recipes:recipe" recipe.id %}">
+                <i class="fas fa-eye"></i>
+                <span>ver mais...</span>
+            </a>
+        </footer>
+    {% endif %}
 
-{% if is_detail_page %}
-    <div class="preparation-steps">
-        {{ recipe.preparation_steps|linebreaksbr }}
-    </div>
-{% endif %}
+    <!-- Preparation Steps (only on the detail page) -->
+    {% if is_detail_page %}
+        <div class="preparation-steps">
+            {{ recipe.preparation_steps|linebreaksbr }}
+        </div>
+    {% endif %}
 
 </div>
