@@ -6,7 +6,7 @@ from recipes.models import Recipe
 
 
 def home(request):
-    recipes = Recipe.objects.all().order_by('-id')
+    recipes = Recipe.objects.filter(is_published=True).order_by('-id')
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
@@ -17,22 +17,23 @@ def home(request):
 
 
 def category(request, category_id):
-    recipes = Recipe.objects.filter(category__id=category_id).order_by('-id')
+    recipes = Recipe.objects.filter(
+        category__id=category_id, is_published=True).order_by('-id')
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
-                      'page_title': 'Home',
+                      'page_title': recipes.first().category.name,  # type: ignore
                       'recipes': recipes
                   }
                   )
 
 
 def recipe(request, id):
-    recipe = Recipe.objects.filter(id=id).first()
+    recipe = Recipe.objects.filter(id=id, is_published=True).first()
     return render(request,
                   template_name='recipes/pages/recipe-view.html',
                   context={
-                      'page_title': 'Recipes',
+                      'page_title': recipe.title,  # type: ignore
                       'recipe': recipe,
                       'is_detail_page': True
                   }
