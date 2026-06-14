@@ -1,6 +1,6 @@
 <div class="recipe recipe-list-item">
 
-    <!-- Recipe Cover -->
+    <!-- Recipe Cover (Imagem) -->
     {% if recipe.cover %}
         <div class="recipe-cover">
             <a href="{% url "recipes:recipe" recipe.id %}">
@@ -57,12 +57,14 @@
 
     <!-- Recipe Metadata -->
     <div class="recipe-meta-container">
+        <!-- Preparation Time -->
         <div class="recipe-meta recipe-preparation">
             <h3 class="recipe-meta-title"><i class="fas fa-stopwatch"></i> Preparo</h3>
             <div class="recipe-meta-text">
                 {{ recipe.preparation_time }} {{ recipe.preparation_time_unit }}
             </div>
         </div>
+        <!-- Servings -->
         <div class="recipe-meta recipe-servings">
             <h3 class="recipe-meta-title"><i class="fas fa-pizza-slice"></i> Porções</h3>
             <div class="recipe-meta-text">
@@ -84,7 +86,13 @@
     <!-- Preparation Steps (only on the detail page) -->
     {% if is_detail_page %}
         <div class="preparation-steps">
-            {{ recipe.preparation_steps|linebreaksbr }}
+            {% if recipe.preparation_steps_is_html %}
+                <!-- Renderiza o conteúdo HTML sem escapar -->
+                {{ recipe.preparation_steps|safe }} 
+            {% else %}
+                <!-- Converte quebras de linha em <br> para preservar a formatação -->
+                {{ recipe.preparation_steps|linebreaksbr }} 
+            {% endif %}
         </div>
     {% endif %}
 
