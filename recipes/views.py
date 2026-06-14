@@ -19,10 +19,11 @@ def home(request):
 def category(request, category_id):
     recipes = Recipe.objects.filter(
         category__id=category_id, is_published=True).order_by('-id')
+    category_name = recipes.first().category.name  # type: ignore
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
-                      'page_title': recipes.first().category.name,  # type: ignore
+                      'page_title': f'{category_name} | Categoria',
                       'recipes': recipes
                   }
                   )
@@ -30,10 +31,11 @@ def category(request, category_id):
 
 def recipe(request, id):
     recipe = Recipe.objects.filter(id=id, is_published=True).first()
+    recipe_name = recipe.title  # type: ignore
     return render(request,
                   template_name='recipes/pages/recipe-view.html',
                   context={
-                      'page_title': recipe.title,  # type: ignore
+                      'page_title': f'{recipe_name} | Receita',
                       'recipe': recipe,
                       'is_detail_page': True
                   }
