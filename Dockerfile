@@ -10,6 +10,7 @@ COPY . /app/
 EXPOSE 12345
 
 RUN chmod +x /app/scripts/comands.sh && \
+pip install --upgrade pip \
 pip install --no-cache-dir -r /app/requirements.txt
 
 CMD ["sh", "/app/scripts/comands.sh"]
