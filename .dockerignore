@@ -28,7 +28,13 @@ web/media
 web/static/CACHE
 stats
 Dockerfile
-.vscode
 .gitignore
 venv
 .venv
+htmlcov
+.coverage
+base_static
+base_templates
+media
+.pytest_cache
+static
