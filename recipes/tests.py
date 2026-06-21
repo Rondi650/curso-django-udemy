@@ -1,16 +1,10 @@
 from django.test import TestCase
-import pytest
+from django.urls import reverse
 
 # Create your tests here.
 
 
-@pytest.mark.slow
-class RecipeURLsTest(TestCase):
-    def test_the_pytest_is_ok(self):
-        print('bom dia')
-        assert 1 == 1, 'Um é igual a um'
-
-
-class Test_erro(TestCase):
-    def test_erro(self):
-        assert 1 == 2
+class RecipeURLTest(TestCase):
+    def test_home_url_is_correct(self):
+        home_url = reverse('recipes:home')
+        assert home_url == '/'
