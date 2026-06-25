@@ -2,10 +2,9 @@ from unittest import TestCase
 from django.urls import reverse
 import pytest
 
-# Django Unit Test
-
 
 class RecipeURLTest(TestCase):
+    # Django Unit Test
     def test_home_url_is_correct(self):
         url = reverse('recipes:home')
         assert url == '/'

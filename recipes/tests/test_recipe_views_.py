@@ -1,14 +1,12 @@
-
 from django import views
 from django.test import TestCase
 from django.urls import resolve, reverse
 from recipes import views
 from rich import print
 
-# Django Unit Test
-
 
 class RecipeViewsTest(TestCase):
+    # Django Unit Test
     def test_home_view_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
         self.assertIs(view.func, views.home)
@@ -25,6 +23,22 @@ class RecipeViewsTest(TestCase):
     def test_recipe_view_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertIs(view.func, views.recipe)
+
+    def test_home_view_return_status_code_200(self):
+        response = self.client.get(reverse('recipes:home'))
+        assert response.status_code == 200
+
+    def test_category_return_status_code_200(self):
+        response = self.client.get('/recipes/category/5/')
+        assert response.status_code == 200
+
+    def test_recipe_view_return_status_code_200(self):
+        response = self.client.get(reverse('recipes:recipe', kwargs={'id': 1}))
+        assert response.status_code == 200
+
+    def test_recipe_home_view_loads_status_code_200(self):
+        response = self.client.get(reverse('recipes:home'))
+        self.assertTemplateUsed(response, 'recipes/pages/home.html')
 
 
 def test_recipe_views_with_pytest():
