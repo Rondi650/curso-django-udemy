@@ -46,6 +46,37 @@ class RecipeViewsTest(TestCase):
         )
 
 
+class RecipeViewTestWithMock(TestCase):
+    def test_recipe_home_template_loads_recipes(self):
+        category = Category.objects.create(name='Categoria Teste')
+        user = User.objects.create_user(first_name='XPTO',
+                                        last_name='C3PO',
+                                        username='pqp_pra_la',
+                                        password='jafsyuhasfyfas1524',
+                                        email='user@user')
+        recipe = Recipe.objects.create(
+            title='teste',
+            description='descricao teste',
+            slug='teste-slug',
+            preparation_time=10,
+            preparation_time_unit='minutos',
+            servings=4,
+            servings_unit='pessoas',
+            preparation_steps='Passo 1\nPasso 2',
+            preparation_steps_is_html=False,
+            created_at='2026-06-01 00:00:00',
+            updated_at='2026-06-01 00:00:00',
+            is_published=False,
+            category=category,
+            author=user
+        )
+
+        print(category)
+        print(user.__dict__)
+        print(recipe.__dict__)
+        print(recipe)
+
+
 def test_recipe_views_with_pytest():
     # apenas testando uso do pytest
     view_h = resolve(reverse('recipes:home'))
