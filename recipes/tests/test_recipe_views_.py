@@ -66,15 +66,25 @@ class RecipeViewTestWithMock(TestCase):
             preparation_steps_is_html=False,
             created_at='2026-06-01 00:00:00',
             updated_at='2026-06-01 00:00:00',
-            is_published=False,
+            is_published=True,
             category=category,
             author=user
         )
 
-        print(category)
-        print(user.__dict__)
-        print(recipe.__dict__)
-        print(recipe)
+        response = self.client.get(reverse('recipes:home'))
+        response_content = response.context['recipes'].first()
+        # print(response_content.__dict__)
+        content = response.content.decode('utf-8')
+        # print(content)
+
+        self.assertEqual(len(response.context['recipes']), 1)
+        self.assertEqual(response_content.slug, 'teste-slug')
+        self.assertIn('pessoas', content)
+
+        # print(category)
+        # print(user.__dict__)
+        # print(recipe.__dict__)
+        # print(recipe)
 
 
 def test_recipe_views_with_pytest():
