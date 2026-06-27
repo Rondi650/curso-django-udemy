@@ -1,8 +1,9 @@
-from django import views
 from django.test import TestCase
 from django.urls import resolve, reverse
 from recipes import views
 from rich import print
+from recipes.models import Category, Recipe
+from django.contrib.auth.models import User
 
 
 class RecipeViewsTest(TestCase):
@@ -13,11 +14,6 @@ class RecipeViewsTest(TestCase):
 
     def test_category_view_function_is_correct(self):
         view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
-        # # categoria = reverse('recipes:category', kwargs={'category_id': 1})
-        # view2 = resolve(f'/recipes/category/5/')
-        # print(f'\n', view)
-        # print(f'\n', view2)
-        # print(f'\n', views.category)
         self.assertIs(view.func, views.category)
 
     def test_recipe_view_function_is_correct(self):
@@ -28,7 +24,17 @@ class RecipeViewsTest(TestCase):
         response = self.client.get(reverse('recipes:home'))
         assert response.status_code == 200
 
-    def test_recipe_home_view_loads_status_code_200(self):
+    def test_category_view_return_404_if_no_recipes_found(self):
+        view = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        self.assertEqual(view.status_code, 404)
+
+    def test_recipe_view_return_404_if_no_recipes_found(self):
+        view = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': 1}))
+        self.assertEqual(view.status_code, 404)
+
+    def test_recipe_home_view_loads_correct_template(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertTemplateUsed(response, 'recipes/pages/home.html')
 

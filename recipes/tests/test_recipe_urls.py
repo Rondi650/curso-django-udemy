@@ -7,11 +7,11 @@ class RecipeURLTest(TestCase):
     # Django Unit Test
     def test_home_url_is_correct(self):
         url = reverse('recipes:home')
-        assert url == '/'
+        self.assertEqual(url, '/')  # modo 1
 
     def test_recipe_url_is_correct(self):
         url = reverse('recipes:recipe', kwargs={'id': 1})
-        assert url == '/recipes/1/'
+        assert url == '/recipes/1/'  # modo 2
 
     def test_category_url_is_correct(self):
         url = reverse('recipes:category', kwargs={'category_id': 1})
