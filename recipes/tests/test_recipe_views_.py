@@ -5,7 +5,6 @@ from recipes.tests.test_base import RecipeTestBase
 from rich import print
 
 
-
 class RecipeViewsTest(TestCase):
     # Django Unit Test
 
@@ -95,9 +94,6 @@ class RecipeHomeViewDataTest(RecipeTestBase):
         response_content = response.context['recipes'].first()
 
         self.assertEqual(response_content.category.name, 'Especial')
-
-
-
 
 
 def test_recipe_views_with_pytest():

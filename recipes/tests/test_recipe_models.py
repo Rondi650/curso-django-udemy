@@ -1,5 +1,6 @@
 from recipes.models import Category
 from recipes.tests.test_base import RecipeTestBase
+import pytest
 
 
 class RecipeModelStrTest(RecipeTestBase):
@@ -10,3 +11,7 @@ class RecipeModelStrTest(RecipeTestBase):
     def test_category_str_method(self):
         response = Category('teste')
         print(response)
+
+    @pytest.mark.skip(reason='aprendizado')
+    def test_that_will_fail(self):
+        self.fail('Fail on purpose, for education knowledge')
