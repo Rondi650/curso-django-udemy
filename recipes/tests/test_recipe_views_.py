@@ -3,7 +3,7 @@ from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_base import RecipeTestBase
 from rich import print
-from recipes.models import Category
+
 
 
 class RecipeViewsTest(TestCase):
@@ -97,14 +97,7 @@ class RecipeViewTestWithMock(RecipeTestBase):
         self.assertEqual(response_content.category.name, 'Especial')
 
 
-class ModelsPrintTest(RecipeTestBase):
-    def test_return_recipe(self):
-        response = self.make_recipe()
-        print(response)
 
-    def test_return_category(self):
-        response = Category('teste')
-        print(response)
 
 
 def test_recipe_views_with_pytest():
