@@ -11,21 +11,30 @@ class RecipeTestBase(TestCase):
 
         return super().setUp()
 
-    def make_category(self, name='Categoria teste'):
+    def make_category(self, name):
         category = Category.objects.create(name=name)
         return category
 
-    def make_author(self):
-        user = User.objects.create_user(
+    def make_author(
+            self,
             first_name='XPTO',
             last_name='C3PO',
             username='pqp_pra_la',
-            password='jafsyuhasfyfas1524',
-            email='user@user')
+            email='user@user',
+            password='jafsyuhasfyfas1524'
+    ):
+        user = User.objects.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            password=password,
+            email=email)
         return user
 
-    def make_recipe(self, category, author):
-        recipe = Recipe.objects.create(
+    def make_recipe(
+            self,
+            category: Category,
+            author: User,
             title='teste',
             description='descricao teste',
             slug='teste-slug',
@@ -35,11 +44,20 @@ class RecipeTestBase(TestCase):
             servings_unit='pessoas',
             preparation_steps='Passo 1\nPasso 2',
             preparation_steps_is_html=False,
-            created_at='2026-06-01 00:00:00',
-            updated_at='2026-06-01 00:00:00',
             is_published=True,
+    ):
+        recipe = Recipe.objects.create(
+            title=title,
+            description=description,
+            slug=slug,
+            preparation_time=preparation_time,
+            preparation_time_unit=preparation_time_unit,
+            servings=servings,
+            servings_unit=servings_unit,
+            preparation_steps=preparation_steps,
+            preparation_steps_is_html=preparation_steps_is_html,
+            is_published=is_published,
             category=category,
             author=author
         )
-        for i in range(2):
-            return recipe
+        return recipe
