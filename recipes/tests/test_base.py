@@ -5,15 +5,14 @@ from django.contrib.auth.models import User
 
 class RecipeTestBase(TestCase):
     def setUp(self) -> None:
-        category = self.make_category(name='Pastel')
-        author = self.make_author()
-        recipe = self.make_recipe(category, author)
-
         return super().setUp()
 
-    def make_category(self, name):
-        category = Category.objects.create(name=name)
-        return category
+    def make_category(
+            self,
+            name='Nova Categoria'
+    ):
+        return Category.objects.create(
+            name=name)
 
     def make_author(
             self,
@@ -22,19 +21,18 @@ class RecipeTestBase(TestCase):
             username='pqp_pra_la',
             email='user@user',
             password='jafsyuhasfyfas1524'
-    ):
-        user = User.objects.create_user(
+    ) -> User | None:
+        return User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
             username=username,
             password=password,
             email=email)
-        return user
 
     def make_recipe(
             self,
-            category: Category,
-            author: User,
+            category=None,
+            author=None,
             title='teste',
             description='descricao teste',
             slug='teste-slug',
@@ -45,8 +43,19 @@ class RecipeTestBase(TestCase):
             preparation_steps='Passo 1\nPasso 2',
             preparation_steps_is_html=False,
             is_published=True,
+
     ):
-        recipe = Recipe.objects.create(
+        if category is None:
+            category = self.make_category()
+        elif isinstance(category, dict):
+            category = self.make_category(**category)
+
+        if author is None:
+            author = self.make_author()
+        elif isinstance(author, dict):
+            author = self.make_author(**author)
+
+        return Recipe.objects.create(
             title=title,
             description=description,
             slug=slug,
@@ -60,4 +69,3 @@ class RecipeTestBase(TestCase):
             category=category,
             author=author
         )
-        return recipe

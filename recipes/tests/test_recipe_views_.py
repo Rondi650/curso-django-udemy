@@ -48,16 +48,18 @@ class RecipeViewsTest(TestCase):
 
 class RecipeViewTestWithMock(RecipeTestBase):
     def test_recipe_home_template_loads_recipes(self):
+        # self.make_recipe(author={'username': 'rondi'})
+        self.make_recipe()
         response = self.client.get(reverse('recipes:home'))
         response_content = response.context['recipes'].first()
-        # print(response_content.category)
+        print(response_content.category)
         content = response.content.decode('utf-8')
-        # print(content)
+        print(content)
 
         self.assertEqual(len(response.context['recipes']), 1)
         self.assertEqual(response_content.slug, 'teste-slug')
         self.assertEqual(response_content.author.username, 'pqp_pra_la')
-        self.assertIn('pessoas', content)
+        self.assertIn('4 pessoas', content)
         self.assertIn('10 minutos', content)
 
 
