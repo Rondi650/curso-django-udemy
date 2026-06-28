@@ -5,12 +5,26 @@ from django.contrib.auth.models import User
 
 class RecipeTestBase(TestCase):
     def setUp(self) -> None:
-        category = Category.objects.create(name='Categoria Teste')
-        user = User.objects.create_user(first_name='XPTO',
-                                        last_name='C3PO',
-                                        username='pqp_pra_la',
-                                        password='jafsyuhasfyfas1524',
-                                        email='user@user')
+        category = self.make_category(name='Pastel')
+        author = self.make_author()
+        recipe = self.make_recipe(category, author)
+
+        return super().setUp()
+
+    def make_category(self, name='Categoria teste'):
+        category = Category.objects.create(name=name)
+        return category
+
+    def make_author(self):
+        user = User.objects.create_user(
+            first_name='XPTO',
+            last_name='C3PO',
+            username='pqp_pra_la',
+            password='jafsyuhasfyfas1524',
+            email='user@user')
+        return user
+
+    def make_recipe(self, category, author):
         recipe = Recipe.objects.create(
             title='teste',
             description='descricao teste',
@@ -25,6 +39,7 @@ class RecipeTestBase(TestCase):
             updated_at='2026-06-01 00:00:00',
             is_published=True,
             category=category,
-            author=user
+            author=author
         )
-        return super().setUp()
+        for i in range(2):
+            return recipe

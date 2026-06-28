@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_base import RecipeTestBase
+from rich import print
 
 
 class RecipeViewsTest(TestCase):
@@ -49,7 +50,7 @@ class RecipeViewTestWithMock(RecipeTestBase):
     def test_recipe_home_template_loads_recipes(self):
         response = self.client.get(reverse('recipes:home'))
         response_content = response.context['recipes'].first()
-        # print(response_content.__dict__)
+        print(response_content.category)
         content = response.content.decode('utf-8')
         # print(content)
 
@@ -57,11 +58,6 @@ class RecipeViewTestWithMock(RecipeTestBase):
         self.assertEqual(response_content.slug, 'teste-slug')
         self.assertIn('pessoas', content)
         self.assertIn('10 minutos', content)
-
-        # print(category)
-        # print(user.__dict__)
-        # print(recipe.__dict__)
-        # print(recipe)
 
 
 def test_recipe_views_with_pytest():
