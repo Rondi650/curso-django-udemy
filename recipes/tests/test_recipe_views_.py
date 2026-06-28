@@ -47,7 +47,7 @@ class RecipeViewsTest(TestCase):
         )
 
 
-class RecipeViewTestWithMock(RecipeTestBase):
+class RecipeHomeViewDataTest(RecipeTestBase):
     def test_recipe_home_template_loads_recipes(self):
         self.make_recipe()
         response = self.client.get(reverse('recipes:home'))
