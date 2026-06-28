@@ -3,6 +3,7 @@ from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_base import RecipeTestBase
 from rich import print
+from recipes.models import Category
 
 
 class RecipeViewsTest(TestCase):
@@ -48,19 +49,62 @@ class RecipeViewsTest(TestCase):
 
 class RecipeViewTestWithMock(RecipeTestBase):
     def test_recipe_home_template_loads_recipes(self):
-        # self.make_recipe(author={'username': 'rondi'})
+        self.make_recipe()
+        response = self.client.get(reverse('recipes:home'))
+
+        self.assertEqual(len(response.context['recipes']), 1)
+
+    def test_recipe_home_template_loads_slug(self):
         self.make_recipe()
         response = self.client.get(reverse('recipes:home'))
         response_content = response.context['recipes'].first()
-        print(response_content.category)
-        content = response.content.decode('utf-8')
-        print(content)
 
-        self.assertEqual(len(response.context['recipes']), 1)
         self.assertEqual(response_content.slug, 'teste-slug')
+
+    def test_recipe_home_template_loads_username(self):
+        self.make_recipe()
+        response = self.client.get(reverse('recipes:home'))
+        response_content = response.context['recipes'].first()
+
         self.assertEqual(response_content.author.username, 'pqp_pra_la')
-        self.assertIn('4 pessoas', content)
+
+    def test_recipe_home_template_has_content_preparation_time(self):
+        self.make_recipe()
+        response = self.client.get(reverse('recipes:home'))
+        content = response.content.decode('utf-8')
+
         self.assertIn('10 minutos', content)
+
+    def test_recipe_home_template_has_content_servings_units(self):
+        self.make_recipe()
+        response = self.client.get(reverse('recipes:home'))
+        content = response.content.decode('utf-8')
+
+        self.assertIn('4 pessoas', content)
+
+    def test_recipe_home_template_loads_username_altered(self):
+        self.make_recipe(author={'username': 'rondi'})
+        response = self.client.get(reverse('recipes:home'))
+        response_content = response.context['recipes'].first()
+
+        self.assertEqual(response_content.author.username, 'rondi')
+
+    def test_recipe_home_template_loads_category_altered(self):
+        self.make_recipe(category={'name': 'Especial'})
+        response = self.client.get(reverse('recipes:home'))
+        response_content = response.context['recipes'].first()
+
+        self.assertEqual(response_content.category.name, 'Especial')
+
+
+class ModelsPrintTest(RecipeTestBase):
+    def test_return_recipe(self):
+        response = self.make_recipe()
+        print(response)
+
+    def test_return_category(self):
+        response = Category('teste')
+        print(response)
 
 
 def test_recipe_views_with_pytest():
