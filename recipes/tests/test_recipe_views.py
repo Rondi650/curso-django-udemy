@@ -98,6 +98,22 @@ class RecipeHomeViewDataTest(RecipeTestBase):
 
         self.assertEqual(response_content.category.name, 'Especial')
 
+    def test_dont_show_recipes_not_published(self):
+        self.make_recipe(is_published=False)
+        response = self.response_get_home()
+        response_content = response.context['recipes']
+
+        self.assertEqual(len(response_content), 0)
+
+    def test_dont_show_recipes_not_published_in_the_page(self):
+        self.make_recipe(is_published=False)
+        response = self.response_get_home()
+        content = response.content.decode('utf-8')
+
+        self.assertIn(
+            'Sem receitas disponibilizadas aqui.',
+            content)
+
 
 class RecipeCategoryViewDataTest(RecipeTestBase):
     def response_get_category(self, category_id=1):
