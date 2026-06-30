@@ -47,50 +47,53 @@ class RecipeViewsTest(TestCase):
 
 
 class RecipeHomeViewDataTest(RecipeTestBase):
+    def response_get_home(self):
+        return self.client.get(reverse('recipes:home'))
+
     def test_recipe_home_template_loads_recipes(self):
         self.make_recipe()
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
 
         self.assertEqual(len(response.context['recipes']), 1)
 
     def test_recipe_home_template_loads_slug(self):
         self.make_recipe()
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         response_content = response.context['recipes'].first()
 
         self.assertEqual(response_content.slug, 'teste-slug')
 
     def test_recipe_home_template_loads_username(self):
         self.make_recipe()
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         response_content = response.context['recipes'].first()
 
         self.assertEqual(response_content.author.username, 'pqp_pra_la')
 
     def test_recipe_home_template_has_content_preparation_time(self):
         self.make_recipe()
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         content = response.content.decode('utf-8')
 
         self.assertIn('10 minutos', content)
 
     def test_recipe_home_template_has_content_servings_units(self):
         self.make_recipe()
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         content = response.content.decode('utf-8')
 
         self.assertIn('4 pessoas', content)
 
     def test_recipe_home_template_loads_username_altered(self):
         self.make_recipe(author={'username': 'rondi'})
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         response_content = response.context['recipes'].first()
 
         self.assertEqual(response_content.author.username, 'rondi')
 
     def test_recipe_home_template_loads_category_altered(self):
         self.make_recipe(category={'name': 'Especial'})
-        response = self.client.get(reverse('recipes:home'))
+        response = self.response_get_home()
         response_content = response.context['recipes'].first()
 
         self.assertEqual(response_content.category.name, 'Especial')
