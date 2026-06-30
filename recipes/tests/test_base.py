@@ -21,7 +21,7 @@ class RecipeTestBase(TestCase):
             username='pqp_pra_la',
             email='user@user',
             password='jafsyuhasfyfas1524'
-    ) -> User | None:
+    ):
         return User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
