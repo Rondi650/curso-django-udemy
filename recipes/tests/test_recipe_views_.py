@@ -96,6 +96,40 @@ class RecipeHomeViewDataTest(RecipeTestBase):
         self.assertEqual(response_content.category.name, 'Especial')
 
 
+class RecipeCategoryViewDataTest(RecipeTestBase):
+    def test_recipe_category_template_loads_recipes(self):
+        self.make_recipe(category={'name': 'pao'})
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        response_content = response.context['recipes']
+        self.assertEqual(len(response_content), 1)
+
+    def test_recipe_category_status_code_200(self):
+        self.make_recipe(category={'name': 'pao'})
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_recipe_category_status_code_404(self):
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        self.assertEqual(response.status_code, 404)
+
+    def test_recipe_category_template_loads_category_altered(self):
+        self.make_recipe(category={'name': 'Especial'})
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        response_content = response.context['recipes'].first()
+        self.assertEqual(response_content.category.name, 'Especial')
+
+    def test_recipe_category_template_has_data(self):
+        self.make_recipe()
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        content = response.content.decode('utf-8')
+        self.assertIn('Nova Categoria', content)
+
+
 def test_recipe_views_with_pytest():
     # apenas testando uso do pytest
     view_h = resolve(reverse('recipes:home'))
