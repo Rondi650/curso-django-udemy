@@ -147,6 +147,11 @@ class RecipeCategoryViewDataTest(RecipeTestBase):
         content = response.content.decode('utf-8')
         self.assertIn('Nova Categoria', content)
 
+    def test_category_show_404_if_not_published(self):
+        self.make_recipe(is_published=False)
+        response = self.response_get_category()
+        assert response.status_code == 404
+
 
 class RecipeViewDataTest(RecipeTestBase):
     def response_get_recipe(self, id=1):
@@ -179,6 +184,11 @@ class RecipeViewDataTest(RecipeTestBase):
         response = self.response_get_recipe()
         content = response.content.decode('utf-8')
         self.assertIn('Nova Categoria', content)
+
+    def test_recipe_show_404_if_not_published(self):
+        self.make_recipe(is_published=False)
+        response = self.response_get_recipe()
+        assert response.status_code == 404
 
 
 def test_recipe_views_with_pytest():
