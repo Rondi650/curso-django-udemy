@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-^&lgttlo)0$=vq_reu7x3!)9z#*9+(xxi(vvycxw$d&fvcmf@n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['recipes.docker.localhost']
 
+CSRF_TRUSTED_ORIGINS = ['https://recipes.docker.localhost']
 
 # Application definition
 
