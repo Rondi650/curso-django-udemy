@@ -15,3 +15,9 @@ class RecipeModelStrTest(RecipeTestBase):
     @pytest.mark.skip(reason='aprendizado')
     def test_that_will_fail(self):
         self.fail('Fail on purpose, for education knowledge')
+
+
+class RecipeModelTest(RecipeTestBase):
+    def setUp(self) -> None:
+        self.recipe = self.make_recipe()
+        return super().setUp()
