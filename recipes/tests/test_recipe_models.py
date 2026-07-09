@@ -1,5 +1,6 @@
 from recipes.models import Category
 from recipes.tests.test_base import RecipeTestBase
+from django.core.exceptions import ValidationError
 import pytest
 
 
@@ -21,3 +22,15 @@ class RecipeModelTest(RecipeTestBase):
     def setUp(self) -> None:
         self.recipe = self.make_recipe()
         return super().setUp()
+
+    # assercao de raise com pytest
+    def test_recipe_raises_error_if_tatle_has_more_than_65_chars(self):
+        with pytest.raises(ValidationError):
+            self.recipe.title = 'a' * 70
+            self.recipe.full_clean()
+
+    # assercao de raise com unittest
+    def test_recipe_raises_error_if_description_has_more_than_165_chars(self):
+        with self.assertRaises(ValidationError):
+            self.recipe.description = 'a' * 170
+            self.recipe.full_clean()
