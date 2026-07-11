@@ -34,3 +34,17 @@ class RecipeModelTest(RecipeTestBase):
         with self.assertRaises(ValidationError):
             self.recipe.description = 'a' * 170
             self.recipe.full_clean()
+
+    # teste de raise em lote
+    def test_recipe_fileds_max_lenght(self):
+        fields = [
+            ('title', 65),
+            ('description', 165),
+            ('preparation_time_unit', 65),
+            ('servings_unit', 65),
+        ]
+
+        for field, max_lenght in fields:
+            with self.assertRaises(ValidationError):
+                setattr(self.recipe, field, 'A' * (max_lenght + 1))
+                self.recipe.full_clean()
