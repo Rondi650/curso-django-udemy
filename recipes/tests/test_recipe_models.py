@@ -44,7 +44,9 @@ class RecipeModelTest(RecipeTestBase):
             ('servings_unit', 65),
         ]
 
+        # subtest com context manager permite ver todos erros do loop
         for field, max_lenght in fields:
-            with self.assertRaises(ValidationError):
-                setattr(self.recipe, field, 'A' * (max_lenght + 1))
-                self.recipe.full_clean()
+            with self.subTest(field=field, max_lenght=max_lenght):
+                with self.assertRaises(ValidationError):
+                    setattr(self.recipe, field, 'A' * (max_lenght + 0))
+                    self.recipe.full_clean()
