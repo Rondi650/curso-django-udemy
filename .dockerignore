@@ -38,3 +38,5 @@ base_templates
 media
 .pytest_cache
 static
+db.sqlite3
+README.md
