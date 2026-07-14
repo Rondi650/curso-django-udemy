@@ -48,5 +48,5 @@ class RecipeModelTest(RecipeTestBase):
         for field, max_lenght in fields:
             with self.subTest(field=field, max_lenght=max_lenght):
                 with self.assertRaises(ValidationError):
-                    setattr(self.recipe, field, 'A' * (max_lenght + 0))
+                    setattr(self.recipe, field, 'A' * (max_lenght + 1))
                     self.recipe.full_clean()
