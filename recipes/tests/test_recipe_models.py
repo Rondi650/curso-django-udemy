@@ -1,4 +1,4 @@
-from recipes.models import Category
+from recipes.models import Category, Recipe
 from recipes.tests.test_base import RecipeTestBase
 from django.core.exceptions import ValidationError
 import pytest
@@ -50,3 +50,23 @@ class RecipeModelTest(RecipeTestBase):
                 with self.assertRaises(ValidationError):
                     setattr(self.recipe, field, 'A' * (max_lenght + 1))
                     self.recipe.full_clean()
+
+    def test_recipe_preparation_steps_is_html_is_false_by_default(self):
+        recipe = Recipe(
+            author=self.make_author(username='dart'),
+            title='teste',
+            description='descricao teste',
+            slug='teste-slug',
+            preparation_time=10,
+            preparation_time_unit='minutos',
+            servings=4,
+            servings_unit='pessoas',
+            preparation_steps='Passo 1\nPasso 2',
+        )
+        recipe.full_clean()
+        recipe.save()
+        self.assertFalse(self.recipe.preparation_steps_is_html)
+
+    def test_recipe_is_published_is_false_by_default(self):
+        recipe = self.make_recipe_no_defaults()
+        self.assertFalse(recipe.is_published)

@@ -1,3 +1,5 @@
+from unicodedata import category
+
 from django.test import TestCase
 from recipes.models import Category, Recipe
 from django.contrib.auth.models import User
@@ -28,6 +30,23 @@ class RecipeTestBase(TestCase):
             username=username,
             password=password,
             email=email)
+
+    def make_recipe_no_defaults(self):
+        recipe = Recipe(
+            category=self.make_category(name='pao'),
+            author=self.make_author(username='dart'),
+            title='teste',
+            description='descricao teste',
+            slug='teste-slug',
+            preparation_time=10,
+            preparation_time_unit='minutos',
+            servings=4,
+            servings_unit='pessoas',
+            preparation_steps='Passo 1\nPasso 2',
+        )
+        recipe.full_clean()
+        recipe.save()
+        return recipe
 
     def make_recipe(
             self,
