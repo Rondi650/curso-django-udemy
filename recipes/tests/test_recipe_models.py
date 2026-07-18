@@ -6,12 +6,12 @@ import pytest
 
 class RecipeModelStrTest(RecipeTestBase):
     def test_recipe_str_method(self):
-        response = self.make_recipe()
-        print(response)
+        response = self.make_recipe(title='receita do rondi')
+        self.assertEqual(response.title, 'receita do rondi')
 
     def test_category_str_method(self):
-        response = Category('teste')
-        print(response)
+        recipe = self.make_category(name='aula 17 julho')
+        self.assertEqual(recipe.name, 'aula 17 julho')
 
     @pytest.mark.skip(reason='aprendizado')
     def test_that_will_fail(self):
