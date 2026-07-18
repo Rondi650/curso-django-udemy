@@ -13,6 +13,12 @@ class RecipeModelStrTest(RecipeTestBase):
         recipe = self.make_category(name='aula 17 julho')
         self.assertEqual(recipe.name, 'aula 17 julho')
 
+    def test_category_max_lenght(self):
+        name = 'A' * 66
+        with self.assertRaises(ValidationError):
+            recipe = self.make_category(name=name)
+            recipe.full_clean()
+        
     @pytest.mark.skip(reason='aprendizado')
     def test_that_will_fail(self):
         self.fail('Fail on purpose, for education knowledge')
