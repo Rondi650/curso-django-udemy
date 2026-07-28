@@ -17,6 +17,10 @@ class RecipeURLTest(TestCase):
         url = reverse('recipes:category', kwargs={'category_id': 1})
         assert url == '/recipes/category/1/'
 
+    def test_recipe_search_url_is_correct(self):
+        url = reverse('recipes:search')
+        assert url == '/recipes/search/'
+
 
 # pytest enviando multiplos ids em loop
 @pytest.mark.parametrize('category_id', [1, 2, 3])
