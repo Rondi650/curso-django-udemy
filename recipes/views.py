@@ -51,3 +51,8 @@ def recipe(request, id):
                       'is_detail_page': True
                   }
                   )
+
+
+def search(request):
+    return render(request,
+                  template_name='recipes/pages/home.html',)

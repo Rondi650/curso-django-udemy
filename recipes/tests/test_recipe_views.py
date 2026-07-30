@@ -45,6 +45,10 @@ class RecipeViewsTest(TestCase):
             response.content.decode('utf-8')
         )
 
+    def test_recipe_search_uses_correct_view_function(self):
+        view = resolve(reverse('recipes:search'))
+        self.assertIs(view.func, views.search)
+
 
 class RecipeHomeViewDataTest(RecipeTestBase):
     def response_get_home(self):
