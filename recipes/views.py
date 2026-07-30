@@ -55,4 +55,4 @@ def recipe(request, id):
 
 def search(request):
     return render(request,
-                  template_name='recipes/pages/home.html',)
+                  template_name='recipes/pages/search.html',)
