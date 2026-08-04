@@ -37,7 +37,7 @@ class RecipeTestBase(TestCase):
             author=self.make_author(username='dart'),
             title='teste',
             description='descricao teste',
-            slug='teste-slug',
+            slug='teste-slug-a',
             preparation_time=10,
             preparation_time_unit='minutos',
             servings=4,
