@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from utils._faker import make_recipe
 from recipes.models import Recipe
-from django.http import Http404
+from django.http import Http404, HttpRequest
 
 # Create your views here.
 
@@ -53,6 +53,11 @@ def recipe(request, id):
                   )
 
 
-def search(request):
+def search(request: HttpRequest):
+    search_term = request.GET.get('q')
+
+    if not search_term:
+        raise Http404()
+
     return render(request,
                   template_name='recipes/pages/search.html',)
