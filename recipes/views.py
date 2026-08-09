@@ -54,10 +54,15 @@ def recipe(request, id):
 
 
 def search(request: HttpRequest):
-    search_term = request.GET.get('q')
+    search_term = request.GET.get('search')
 
     if not search_term:
         raise Http404()
 
     return render(request,
-                  template_name='recipes/pages/search.html',)
+                  template_name='recipes/pages/search.html',
+                  context={
+                      'page_title': f'{search_term} | Pesquisa',
+                      'search_term': search_term
+                  }
+                  )
