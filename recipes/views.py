@@ -54,7 +54,7 @@ def recipe(request, id):
 
 
 def search(request: HttpRequest):
-    search_term = request.GET.get('search')
+    search_term = request.GET.get('search', '').strip()
 
     if not search_term:
         raise Http404()
