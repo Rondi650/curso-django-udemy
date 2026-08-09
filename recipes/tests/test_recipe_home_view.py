@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_base import RecipeTestBase
