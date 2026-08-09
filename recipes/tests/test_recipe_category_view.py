@@ -1,10 +1,20 @@
-from django.urls import reverse
+from django.urls import reverse, resolve
+from recipes import views
 from recipes.tests.test_base import RecipeTestBase
 
 class RecipeCategoryViewDataTest(RecipeTestBase):
     def response_get_category(self, category_id=1):
         return self.client.get(
             reverse('recipes:category', kwargs={'category_id': category_id}))
+        
+    def test_category_view_function_is_correct(self):
+        view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
+        self.assertIs(view.func, views.category)
+        
+    def test_category_view_return_404_if_no_recipes_found(self):
+        view = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 1}))
+        self.assertEqual(view.status_code, 404)
 
     def test_recipe_category_template_loads_recipes(self):
         self.make_recipe(category={'name': 'pao'})
