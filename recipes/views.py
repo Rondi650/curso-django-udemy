@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from utils._faker import make_recipe
+from django.db.models import Q
 from recipes.models import Recipe
 from django.http import Http404, HttpRequest
 
@@ -60,8 +60,9 @@ def search(request: HttpRequest):
         raise Http404()
 
     recipes = Recipe.objects.filter(
-        title__icontains=search_term
-    )
+        Q(title__icontains=search_term) |
+        Q(description__icontains=search_term)
+    ).order_by('-id')
 
     return render(request,
                   template_name='recipes/pages/search.html',
