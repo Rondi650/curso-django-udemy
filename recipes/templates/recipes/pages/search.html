@@ -4,6 +4,13 @@
 <div class="center">
 <h1>Pesquisa</h1>
 <p>Resultados para: {{ search_term }}</p>
-<br>
+    {% for recipe in recipes %}
+        {% include "recipes/partials/recipe.html" %}
+    <!-- empty funciona como se fosse um if, mas dentro do for-->
+    {% empty %}
+        <div class="center m-y">
+            <h1>Sem receitas disponibilizadas aqui.</h1>
+        </div>
+    {% endfor %}
 </div>
 {% endblock content %}

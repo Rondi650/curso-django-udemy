@@ -59,10 +59,15 @@ def search(request: HttpRequest):
     if not search_term:
         raise Http404()
 
+    recipes = Recipe.objects.filter(
+        title__icontains=search_term
+    )
+
     return render(request,
                   template_name='recipes/pages/search.html',
                   context={
                       'page_title': f'{search_term} | Pesquisa',
-                      'search_term': search_term
+                      'search_term': search_term,
+                      'recipes': recipes
                   }
                   )
