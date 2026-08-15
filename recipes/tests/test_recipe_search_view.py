@@ -41,4 +41,11 @@ class RecipeSearchViewTest(RecipeTestBase):
             author={'username': 'rondinelle'}
         )
         
+        search_url = reverse('recipes:search')
+        response1 = self.client.get(search_url  + f'?search={title1}') 
+        response2 = self.client.get(search_url  + f'?search={title2}')
+        response_both = self.client.get(search_url  + f'?search=this')
         
+        print('*' * 50)
+        print(response1.context['recipes'])
+        self.assertNotIn(recipe2, response1.context['recipes'])
