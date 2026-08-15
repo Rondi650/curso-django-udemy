@@ -22,6 +22,7 @@ class RecipeURLTest(TestCase):
         assert url == '/recipes/search/'
 
 
+
 # pytest enviando multiplos ids em loop
 @pytest.mark.parametrize('category_id', [1, 2, 3])
 def test_category_multiple_ids_url_is_correct(category_id):

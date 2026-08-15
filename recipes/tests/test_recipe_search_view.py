@@ -1,6 +1,7 @@
 from recipes.tests.test_base import RecipeTestBase
 from django.urls import resolve, reverse
 from recipes import views
+from rich import print
 
 
 class RecipeSearchViewTest(RecipeTestBase):
@@ -28,24 +29,29 @@ class RecipeSearchViewTest(RecipeTestBase):
     def test_recipe_search_can_find_recipe_by_title(self):
         title1 = 'This is recipe one'
         title2 = 'This is recipe two'
-        
+
         recipe1 = self.make_recipe(
-            slug = 'teste',
+            slug='teste',
             title=title1,
             author={'username': 'rondi'}
         )
-        
+
         recipe2 = self.make_recipe(
-            slug = 'teste2',
+            slug='teste2',
             title=title2,
             author={'username': 'rondinelle'}
         )
-        
+
         search_url = reverse('recipes:search')
-        response1 = self.client.get(search_url  + f'?search={title1}') 
-        response2 = self.client.get(search_url  + f'?search={title2}')
-        response_both = self.client.get(search_url  + f'?search=this')
-        
-        print('*' * 50)
-        print(response1.context['recipes'])
+        response1 = self.client.get(search_url + f'?search={title1}')
+        response2 = self.client.get(search_url + f'?search={title2}')
+        response_both = self.client.get(search_url + f'?search=This')
+
+        # print(response1.content.decode('utf-8'))
         self.assertNotIn(recipe2, response1.context['recipes'])
+
+        # print(response2.content.decode('utf-8'))
+        self.assertIn(recipe2, response2.context['recipes'])
+
+        print(response_both.content.decode('utf-8'))
+        self.assertIn(recipe2, response_both.context['recipes'])
