@@ -20,7 +20,7 @@ class RecipeTestBase(TestCase):
             self,
             first_name='XPTO',
             last_name='C3PO',
-            username='pqp_pra_la',
+            username='rondinelle nunes de oliveira',
             email='user@user',
             password='jafsyuhasfyfas1524'
     ):

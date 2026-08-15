@@ -1,9 +1,9 @@
-from django.test import TestCase
+from recipes.tests.test_base import RecipeTestBase
 from django.urls import resolve, reverse
 from recipes import views
 
 
-class RecipeSearchViewTest(TestCase):
+class RecipeSearchViewTest(RecipeTestBase):
     def test_recipe_search_uses_correct_view_function(self):
         view = resolve(reverse('recipes:search'))
         self.assertIs(view.func, views.search)
@@ -24,3 +24,21 @@ class RecipeSearchViewTest(TestCase):
             'Resultados para: &lt;Teste&gt;',
             response.content.decode('utf-8')
         )
+
+    def test_recipe_search_can_find_recipe_by_title(self):
+        title1 = 'This is recipe one'
+        title2 = 'This is recipe two'
+        
+        recipe1 = self.make_recipe(
+            slug = 'teste',
+            title=title1,
+            author={'username': 'rondi'}
+        )
+        
+        recipe2 = self.make_recipe(
+            slug = 'teste2',
+            title=title2,
+            author={'username': 'rondinelle'}
+        )
+        
+        
