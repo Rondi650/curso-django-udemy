@@ -59,24 +59,24 @@ DUPLICANDO RECEITAS PELO SHELL
 RENOMEANDO SLUGS
 >>> r = Recipe.objects.all()
 >>> r
-<QuerySet [<Recipe: Bolo de Pote>, <Recipe: Almondega Recheada>, <Recipe: Frango com Quiabo>, <Recipe: Bolo de chololate>, <Recipe: Pao de Lo>]>
->>> for i in r: p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); print(p)
-... 
-<re.Match object; span=(0, 12), match='bolo-de-pote'>
-<re.Match object; span=(0, 17), match='almondega-maneira'>
-<re.Match object; span=(0, 17), match='frango-com-quiabo'>
-<re.Match object; span=(0, 17), match='bolo-de-chocolate'>
-<re.Match object; span=(0, 9), match='pao-de-lo'>
->>> for i in r: p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); i.slug = p.group()
-... 
->>> for i in r: print(i.slug)
-... 
-bolo-de-pote
-almondega-maneira
-frango-com-quiabo
-bolo-de-chocolate
-pao-de-lo
+<QuerySet [<Recipe: Bolo de Pote>, <Recipe: Almondega Recheada>, <Recipe: Frango com Quiabo>...]
 
+>>> for i in r: print(i.slug)
+pao-de-lo 117
+bolo-de-pote 118
+almondega-maneira 119...
+
+import re
+>>> for x,i in enumerate(r): p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); print(p.group())
+pao-de-lo
+bolo-de-pote
+almondega-maneira...
+
+>>> for x,i in enumerate(r): p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); i.slug=f'{p.group()}-{x+1}'; i.save()
+>>> r
+pao-de-lo-1
+bolo-de-pote-2
+almondega-maneira-3...
 '''
 
 
@@ -88,17 +88,7 @@ DELETANDO IDS PELO SHELL
 ... 
 (1, {'recipes.Recipe': 1})
 (1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
-(1, {'recipes.Recipe': 1})
+
 >>> r = Recipe.objects.all()  # Força nova consulta no banco
 >>> r
 <QuerySet [<Recipe: Bolo de Pote>, <Recipe: Almondega Recheada>, <Recipe: Frango com Quiabo>, <Recipe: Bolo de chololate>, <Recipe: Pao de Lo>]>
