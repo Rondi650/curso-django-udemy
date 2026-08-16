@@ -45,6 +45,8 @@ username='pqp_pra_la',password='jafsyuhasfyfas1524')
 '''
 DUPLICANDO RECEITAS PELO SHELL
 >>> import random
+>>> r = Recipe.objects.all()
+>>> r
 >>> for i in r:
 ...     i.id = None  # Reseta o ID para forçar a criação de um novo registro
 ...     sufixo = random.randint(100, 999)  # Gera um número aleatório
@@ -65,13 +67,6 @@ RENOMEANDO SLUGS
 <re.Match object; span=(0, 17), match='frango-com-quiabo'>
 <re.Match object; span=(0, 17), match='bolo-de-chocolate'>
 <re.Match object; span=(0, 9), match='pao-de-lo'>
->>> for i in r: p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); print(p.group())
-... 
-bolo-de-pote
-almondega-maneira
-frango-com-quiabo
-bolo-de-chocolate
-pao-de-lo
 >>> for i in r: p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); i.slug = p.group()
 ... 
 >>> for i in r: print(i.slug)
