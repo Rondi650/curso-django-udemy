@@ -46,7 +46,6 @@ username='pqp_pra_la',password='jafsyuhasfyfas1524')
 DUPLICANDO RECEITAS PELO SHELL
 >>> import random
 >>> r = Recipe.objects.all()
->>> r
 >>> for i in r:
 ...     i.id = None  # Reseta o ID para forçar a criação de um novo registro
 ...     sufixo = random.randint(100, 999)  # Gera um número aleatório
@@ -61,22 +60,40 @@ RENOMEANDO SLUGS
 >>> r
 <QuerySet [<Recipe: Bolo de Pote>, <Recipe: Almondega Recheada>, <Recipe: Frango com Quiabo>...]
 
->>> for i in r: print(i.slug)
-pao-de-lo 117
-bolo-de-pote 118
-almondega-maneira 119...
+# Vendo os slugs atuais
+>>> for i in r
+... print(i.slug)
+...
+pao-de-lo-117
+bolo-de-pote-118
+almondega-maneira-119
+...
 
-import re
->>> for x,i in enumerate(r): p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); print(p.group())
+# Testando o Regex
+>>> import re
+>>> for x,i in enumerate(r): 
+... p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug)
+... print(p.group())
+...
 pao-de-lo
 bolo-de-pote
-almondega-maneira...
+almondega-maneira
+...
 
->>> for x,i in enumerate(r): p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug); i.slug=f'{p.group()}-{x+1}'; i.save()
+# Aplicando o Regex + enumerate
+>>> for x,i in enumerate(r)
+... p = re.search(r'[a-z]+(?:-[a-z]+)*',i.slug)
+... i.slug=f'{p.group()}-{x+1}'
+... i.save()
+...
+
+# Printando resultado final
 >>> r
+...
 pao-de-lo-1
 bolo-de-pote-2
-almondega-maneira-3...
+almondega-maneira-3
+...
 '''
 
 
