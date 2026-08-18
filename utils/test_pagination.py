@@ -1,4 +1,5 @@
 from unittest import TestCase
+from utils.pagination import make_pagination_range
 
 
 class PaginationTest(TestCase):
@@ -8,4 +9,4 @@ class PaginationTest(TestCase):
             qtd_paginas=4,
             current_page=1
         )
-        self.assertIn([1, 2, 3, 4], pagination)
+        self.assertEqual([1, 2, 3, 4], pagination)
