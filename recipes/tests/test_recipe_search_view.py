@@ -53,5 +53,5 @@ class RecipeSearchViewTest(RecipeTestBase):
         # print(response2.content.decode('utf-8'))
         self.assertIn(recipe2, response2.context['recipes'])
 
-        print(response_both.content.decode('utf-8'))
+        # print(response_both.content.decode('utf-8'))
         self.assertIn(recipe2, response_both.context['recipes'])

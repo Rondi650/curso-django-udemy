@@ -46,7 +46,8 @@ class RecipeHomeViewDataTest(RecipeTestBase):
         response = self.response_get_home()
         response_content = response.context['recipes'].first()
 
-        self.assertEqual(response_content.author.username, 'pqp_pra_la')
+        self.assertEqual(response_content.author.username,
+                         'rondinelle nunes de oliveira')
 
     def test_recipe_home_template_has_content_preparation_time(self):
         self.make_recipe()
