@@ -8,3 +8,4 @@ class PaginationTest(TestCase):
             qtd_paginas=4,
             current_page=1
         )
+        self.assertIn([1, 2, 3, 4], pagination)
