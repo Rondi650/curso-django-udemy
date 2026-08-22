@@ -87,7 +87,7 @@
     {% if is_detail_page %}
         <div class="preparation-steps">
             {% if recipe.preparation_steps_is_html %}
-                <!-- Renderiza o conteúdo HTML sem escapar -->
+                <!-- safe Renderiza o conteúdo HTML sem escapar -->
                 {{ recipe.preparation_steps|safe }} 
             {% else %}
                 <!-- Converte quebras de linha em <br> para preservar a formatação -->

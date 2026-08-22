@@ -1,6 +1,9 @@
 <div class="search-container">
+    <!-- Área da pesquisa. -->
     <div class="container">
+        <!-- Formulário que envia o termo pesquisado. -->
         <form action="{% url "recipes:search" %}" class="search-form", method>
+            <!-- Campo e botão de pesquisa. -->
             <input type="search" class="search-input" name="search" required>
             <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
         </form>
