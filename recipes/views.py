@@ -7,11 +7,12 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 
-def home(request):
+def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
+    current_page = request.GET.get('page', 1)
     paginator = Paginator(recipes, 9)
-    page_obj = paginator.get_page(3)
+    page_obj = paginator.get_page(current_page)
 
     return render(request,
                   template_name='recipes/pages/home.html',
@@ -22,7 +23,7 @@ def home(request):
                   )
 
 
-def category(request, category_id):
+def category(request: HttpRequest, category_id):
     recipes = Recipe.objects.filter(
         category__id=category_id, is_published=True).order_by('-id')
 
@@ -40,7 +41,7 @@ def category(request, category_id):
                   )
 
 
-def recipe(request, id):
+def recipe(request: HttpRequest, id):
     recipe = Recipe.objects.filter(id=id, is_published=True).first()
 
     if not recipe:
