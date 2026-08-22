@@ -2,12 +2,17 @@ from django.shortcuts import render
 from django.db.models import Q
 from recipes.models import Recipe
 from django.http import Http404, HttpRequest
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 
 def home(request):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
+
+    paginator = Paginator(recipes, 10)
+    page_obj = paginator.get_page(1)
+
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
