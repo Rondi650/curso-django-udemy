@@ -6,9 +6,7 @@
 
     <main class="main-content-container">
             {% block content %}{% endblock content %}
-            <div class="content pagination">
-                1 2 3 4 5
-            </div>
+    {% include "recipes/partials/pagination.html" %}     
     </main>
 
     {% include 'recipes/partials/footer.html' %}
