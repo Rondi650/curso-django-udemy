@@ -3,9 +3,9 @@ from typing import Any
 
 
 def make_pagination_range(
-    page_range: list[int],
-    qty_pages: int,
-    current_page: int,
+    page_range,
+    qty_pages,
+    current_page,
 ) -> dict[str, int | list[int]]:
 
     middle_range: int = math.ceil(qty_pages / 2)

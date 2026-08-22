@@ -11,17 +11,22 @@ from utils.pagination import make_pagination_range
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
-    current_page = request.GET.get('page', 1)
+    current_page = int(request.GET.get('page', 1))
     paginator = Paginator(recipes, 9)
     page_obj = paginator.get_page(current_page)
-    
-    pagination_range = make_pagination_range
+
+    pagination_range = make_pagination_range(
+        page_range=paginator.page_range,
+        qty_pages=4,
+        current_page=current_page
+    )
 
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
                       'page_title': 'Home',
-                      'recipes': page_obj
+                      'recipes': page_obj,
+                      'pagination_range': pagination_range
                   }
                   )
 
