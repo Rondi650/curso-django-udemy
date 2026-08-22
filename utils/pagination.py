@@ -3,25 +3,26 @@ from typing import Any
 
 
 def make_pagination_range(
-    page_range,
-    qty_pages,
-    current_page,
-) -> dict[str,Any]:
-    middle_range = math.ceil(qty_pages / 2)
-    start_range = current_page - middle_range
-    stop_range = current_page + middle_range
-    total_pages = len(page_range)
+    page_range: list[int],
+    qty_pages: int,
+    current_page: int,
+) -> dict[str, int | list[int]]:
 
-    start_range_offset = abs(start_range) if start_range < 0 else 0
+    middle_range: int = math.ceil(qty_pages / 2)
+    start_range: int = current_page - middle_range
+    stop_range: int = current_page + middle_range
+    total_pages: int = len(page_range)
+
+    start_range_offset: int = abs(start_range) if start_range < 0 else 0
 
     if start_range < 0:
-        start_range = 0
+        start_range: int = 0
         stop_range += start_range_offset
 
     if stop_range >= total_pages:
-        start_range = start_range - abs(total_pages - stop_range)
+        start_range: int = start_range - abs(total_pages - stop_range)
 
-    pagination = page_range[start_range:stop_range]
+    pagination: list[int] = page_range[start_range:stop_range]
     return {
         'pagination': pagination,
         'page_range': page_range,
