@@ -3,6 +3,7 @@ from django.db.models import Q
 from recipes.models import Recipe
 from django.http import Http404, HttpRequest
 from django.core.paginator import Paginator
+from utils.pagination import make_pagination_range
 
 # Create your views here.
 
@@ -13,6 +14,8 @@ def home(request: HttpRequest):
     current_page = request.GET.get('page', 1)
     paginator = Paginator(recipes, 9)
     page_obj = paginator.get_page(current_page)
+    
+    pagination_range = make_pagination_range
 
     return render(request,
                   template_name='recipes/pages/home.html',
