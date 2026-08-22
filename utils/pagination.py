@@ -1,11 +1,12 @@
 import math
+from typing import Any
 
 
 def make_pagination_range(
     page_range,
     qty_pages,
     current_page,
-):
+) -> dict[str,Any]:
     middle_range = math.ceil(qty_pages / 2)
     start_range = current_page - middle_range
     stop_range = current_page + middle_range
