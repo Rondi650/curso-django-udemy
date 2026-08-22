@@ -2,17 +2,20 @@
 <div class="container pagination">
     <div class="pagination-content">
 
+        <!-- Mostra a primeira página quando necessário. -->
         {% if pagination_range.first_page_out_of_range %}
             <a class="page-link page-item" href="?page=1">1</a>
                 <span class="page-item">...</span>
         {% endif %}
 
+        <!-- Mostra as páginas do intervalo atual. -->
         {% for page in pagination_range.pagination %}
             <a class="page-link page-item" href="?page={{ page }}">
                 {{ page }}
             </a>
         {% endfor %}
 
+        <!-- Mostra a última página quando necessário. -->
         {% if pagination_range.last_page_out_of_range %}
             <span class="page-item">...</span>
             <a class="page-link page-item" href="?page={{ pagination_range.total_pages }}">
