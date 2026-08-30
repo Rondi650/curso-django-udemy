@@ -1,6 +1,7 @@
 from django.urls import resolve, reverse
 from recipes import views
 from recipes.tests.test_base import RecipeTestBase
+from pprint import pprint
 
 
 class RecipeHomeViewDataTest(RecipeTestBase):
@@ -66,14 +67,16 @@ class RecipeHomeViewDataTest(RecipeTestBase):
     def test_recipe_home_template_loads_username_altered(self):
         self.make_recipe(author={'username': 'rondi'})
         response = self.response_get_home()
-        response_content = response.context['recipes'].first()
+        # pprint('*'*50)
+        # pprint(response.context['recipes'].object_list[0].__dict__)
+        response_content = response.context['recipes'].object_list[0]
 
         self.assertEqual(response_content.author.username, 'rondi')
 
     def test_recipe_home_template_loads_category_altered(self):
         self.make_recipe(category={'name': 'Especial'})
         response = self.response_get_home()
-        response_content = response.context['recipes'].first()
+        response_content = response.context['recipes'].object_list[0]
 
         self.assertEqual(response_content.category.name, 'Especial')
 
