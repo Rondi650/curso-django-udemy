@@ -18,7 +18,7 @@ def home(request: HttpRequest):
                   context={
                       'page_title': 'Home',
                       'recipes': page_obj,
-                      'pagination_range': pagination_range
+                      'pagination_range': pagination_range,
                   }
                   )
 
@@ -31,14 +31,15 @@ def category(request: HttpRequest, category_id):
         raise Http404
 
     category_name = recipes.first().category.name  # type: ignore
-    
+
     page_obj, pagination_range = make_pagination(request, recipes, 9)
 
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
                       'page_title': f'{category_name} | Categoria',
-                      'recipes': page_obj
+                      'recipes': page_obj,
+                      'pagination_range': pagination_range,
                   }
                   )
 
@@ -56,7 +57,7 @@ def recipe(request: HttpRequest, id):
                   context={
                       'page_title': f'{recipe_name} | Receita',
                       'recipe': recipe,
-                      'is_detail_page': True
+                      'is_detail_page': True,
                   }
                   )
 
@@ -74,7 +75,7 @@ def search(request: HttpRequest):
         ),
         is_published=True
     ).order_by('-id')
-    
+
     page_obj, pagination_range = make_pagination(request, recipes, 9)
 
     return render(request,
@@ -82,6 +83,7 @@ def search(request: HttpRequest):
                   context={
                       'page_title': f'{search_term} | Pesquisa',
                       'search_term': search_term,
-                      'recipes': page_obj
+                      'recipes': page_obj,
+                      'pagination_range': pagination_range,
                   }
                   )
