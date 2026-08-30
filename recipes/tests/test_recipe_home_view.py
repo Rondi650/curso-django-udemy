@@ -38,14 +38,14 @@ class RecipeHomeViewDataTest(RecipeTestBase):
     def test_recipe_home_template_loads_slug(self):
         self.make_recipe()
         response = self.response_get_home()
-        response_content = response.context['recipes'].first()
+        response_content = response.context['recipes'].object_list[0]
 
         self.assertEqual(response_content.slug, 'teste-slug')
 
     def test_recipe_home_template_loads_username(self):
         self.make_recipe()
         response = self.response_get_home()
-        response_content = response.context['recipes'].first()
+        response_content = response.context['recipes'].object_list[0]
 
         self.assertEqual(response_content.author.username,
                          'rondinelle nunes de oliveira')
