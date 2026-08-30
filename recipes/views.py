@@ -3,17 +3,13 @@ from django.db.models import Q
 from recipes.models import Recipe
 from django.http import Http404, HttpRequest
 from django.core.paginator import Paginator
-from utils.pagination import make_pagination_range, make_pagination
+from utils.pagination import make_pagination
 
 # Create your views here.
 
 
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
-
-    current_page = int(request.GET.get('page', 1))
-    paginator = Paginator(recipes, 9)
-    page_obj = paginator.get_page(current_page)
 
     page_obj, pagination_range = make_pagination(request, recipes, 9)
 
@@ -35,12 +31,14 @@ def category(request: HttpRequest, category_id):
         raise Http404
 
     category_name = recipes.first().category.name  # type: ignore
+    
+    page_obj, pagination_range = make_pagination(request, recipes, 9)
 
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
                       'page_title': f'{category_name} | Categoria',
-                      'recipes': recipes
+                      'recipes': page_obj
                   }
                   )
 
@@ -76,12 +74,14 @@ def search(request: HttpRequest):
         ),
         is_published=True
     ).order_by('-id')
+    
+    page_obj, pagination_range = make_pagination(request, recipes, 9)
 
     return render(request,
                   template_name='recipes/pages/search.html',
                   context={
                       'page_title': f'{search_term} | Pesquisa',
                       'search_term': search_term,
-                      'recipes': recipes
+                      'recipes': page_obj
                   }
                   )
