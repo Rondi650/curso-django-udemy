@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.db.models import Q
 from recipes.models import Recipe
@@ -7,7 +8,8 @@ from utils.pagination import make_pagination
 
 # Create your views here.
 
-PER_PAGES = 9
+PER_PAGES = int(os.environ.get('PER_PAGE', 6))
+
 
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
