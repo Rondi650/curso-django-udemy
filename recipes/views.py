@@ -7,11 +7,12 @@ from utils.pagination import make_pagination
 
 # Create your views here.
 
+PER_PAGES = 9
 
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
 
     return render(request,
                   template_name='recipes/pages/home.html',
@@ -32,7 +33,7 @@ def category(request: HttpRequest, category_id):
 
     category_name = recipes.first().category.name  # type: ignore
 
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
 
     return render(request,
                   template_name='recipes/pages/home.html',
@@ -76,7 +77,7 @@ def search(request: HttpRequest):
         is_published=True
     ).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, 9)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
 
     return render(request,
                   template_name='recipes/pages/search.html',
