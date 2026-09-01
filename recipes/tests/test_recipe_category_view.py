@@ -34,7 +34,7 @@ class RecipeCategoryViewDataTest(RecipeTestBase):
     def test_recipe_category_template_loads_category_altered(self):
         self.make_recipe(category={'name': 'Especial'})
         response = self.response_get_category()
-        response_content = response.context['recipes'].first()
+        response_content = response.context['recipes'].object_list[0]
         self.assertEqual(response_content.category.name, 'Especial')
 
     def test_recipe_category_template_has_data(self):
