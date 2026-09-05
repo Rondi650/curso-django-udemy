@@ -1,6 +1,6 @@
 import math
-from typing import Any
 from django.core.paginator import Paginator
+from django.http import HttpRequest
 
 
 def make_pagination_range(
@@ -37,7 +37,7 @@ def make_pagination_range(
     }
 
 
-def make_pagination(request, queryset, per_page, qty_pages=4):
+def make_pagination(request: HttpRequest, queryset, per_page, qty_pages=4):
     try:
         current_page = int(request.GET.get('page', 1))
     except ValueError:
