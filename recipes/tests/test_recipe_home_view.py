@@ -103,7 +103,7 @@ class RecipeHomeViewDataTest(RecipeTestBase):
             pprint(kwargs)
             self.make_recipe(**kwargs)
 
-        with patch('recipes.views.PER_PAGES', new=3):
+        with patch('recipes.views.PER_PAGE', new=4):
             response = self.client.get(reverse('recipes:home'))
             pprint(response)
             recipes = response.context['recipes']
@@ -111,7 +111,7 @@ class RecipeHomeViewDataTest(RecipeTestBase):
             paginator = recipes.paginator
             pprint(paginator)
 
-            self.assertEqual(paginator.num_pages, 3)
+            self.assertEqual(paginator.num_pages, 4)
             self.assertEqual(len(paginator.get_page(1)), 3)
             self.assertEqual(len(paginator.get_page(2)), 3)
             self.assertEqual(len(paginator.get_page(3)), 2)

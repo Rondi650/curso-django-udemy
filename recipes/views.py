@@ -8,13 +8,13 @@ from utils.pagination import make_pagination
 
 # Create your views here.
 
-PER_PAGES = int(os.environ.get('PER_PAGE', 6))
+PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request,
                   template_name='recipes/pages/home.html',
@@ -35,7 +35,7 @@ def category(request: HttpRequest, category_id):
 
     category_name = recipes.first().category.name  # type: ignore
 
-    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request,
                   template_name='recipes/pages/home.html',
@@ -79,7 +79,7 @@ def search(request: HttpRequest):
         is_published=True
     ).order_by('-id')
 
-    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGES)
+    page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request,
                   template_name='recipes/pages/search.html',
