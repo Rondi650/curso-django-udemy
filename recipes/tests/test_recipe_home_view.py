@@ -100,12 +100,16 @@ class RecipeHomeViewDataTest(RecipeTestBase):
     def test_recipe_home_is_paginated(self):
         for i in range(8):
             kwargs = {'slug': f'r{i}', 'author': {'username': f'u{i}'}}
+            pprint(kwargs)
             self.make_recipe(**kwargs)
 
         with patch('recipes.views.PER_PAGES', new=3):
             response = self.client.get(reverse('recipes:home'))
+            pprint(response)
             recipes = response.context['recipes']
+            pprint(recipes)
             paginator = recipes.paginator
+            pprint(paginator)
 
             self.assertEqual(paginator.num_pages, 3)
             self.assertEqual(len(paginator.get_page(1)), 3)
