@@ -16,8 +16,6 @@ def home(request: HttpRequest):
 
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
-    messages.success(request, 'Teste')
-
     return render(request,
                   template_name='recipes/pages/home.html',
                   context={
@@ -68,6 +66,8 @@ def recipe(request: HttpRequest, id):
 
 
 def search(request: HttpRequest):
+    messages.success(request, 'Teste')
+
     search_term = request.GET.get('search', '').strip()
 
     if not search_term:
