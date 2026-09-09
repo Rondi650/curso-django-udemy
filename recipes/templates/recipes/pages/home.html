@@ -1,10 +1,13 @@
 {% extends "global/base.html" %}
 
 {% block content %}
+
 {% if messages %}
-<div class="main-content center container"> 
+<div class="main-content center container">
     {% for message in messages %}
-        {{message}}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
     {% endfor %}
 </div>
 {% endif %}
@@ -19,5 +22,6 @@
         </div>
     {% endfor %}
 </div>
+
 {% endblock content %}
 

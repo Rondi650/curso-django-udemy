@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'  # montagem da url
 MEDIA_ROOT = BASE_DIR / 'media/'  # caminho fisico dos dados
 
-MESSAGES_TAGS = {
+MESSAGE_TAGS = {
     constants.DEBUG: 'message-debug',
     constants.ERROR: 'message-error',
     constants.INFO: 'message-info',

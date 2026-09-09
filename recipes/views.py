@@ -14,6 +14,8 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
+    messages.success(request, 'Teste')
+
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
     return render(request,
@@ -66,7 +68,6 @@ def recipe(request: HttpRequest, id):
 
 
 def search(request: HttpRequest):
-    messages.success(request, 'Teste')
 
     search_term = request.GET.get('search', '').strip()
 
