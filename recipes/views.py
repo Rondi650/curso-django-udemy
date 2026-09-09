@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.db.models import Q
 from recipes.models import Recipe
 from django.http import Http404, HttpRequest
-from django.core.paginator import Paginator
 from utils.pagination import make_pagination
+from django.contrib import messages
 
 # Create your views here.
 
@@ -15,6 +15,8 @@ def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
+
+    messages.success(request, 'Teste')
 
     return render(request,
                   template_name='recipes/pages/home.html',
