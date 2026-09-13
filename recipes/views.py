@@ -14,9 +14,9 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 def home(request: HttpRequest):
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
-    messages.success(request, 'Teste')
-    messages.info(request, 'Teste')
-    messages.warning(request, 'Teste')
+    # messages.success(request, 'Teste')
+    # messages.info(request, 'Teste')
+    # messages.warning(request, 'Teste')
 
     page_obj, pagination_range = make_pagination(request, recipes, PER_PAGE)
 
